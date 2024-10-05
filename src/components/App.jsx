@@ -10,50 +10,28 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import React, { memo } from 'react';
-import { View } from '@adobe/react-spectrum';
+import React, { memo } from "react";
+import { View } from "@adobe/react-spectrum";
 
-import Initializer from './Initializer';
-
-import SearchForm from './SearchForm';
-import CategoryList from './CategoryList';
-import AboutAddOn from './AboutAddOn';
-import './App.css';
+// import SearchForm from "./SearchForm";
+// import CategoryList from "./CategoryList";
+// import AboutAddOn from "./AboutAddOn";
+import Button from "@mui/material/Button";
+import "./App.css";
 
 const App = memo(({ addOnSdk }) => {
   return (
-    <Initializer addOnSdk={addOnSdk}>
-      <View
-        width="100%"
-        margin="size-0"
-        padding="size-0"
-        position="relative"
-        backgroundColor="default"
-      >
-        <AboutAddOn>
-          <View
-            width="100%"
-            height="size-900"
-            position="fixed"
-            top="size-0"
-            left="size-0"
-            backgroundColor="gray-75"
-            zIndex={10}
-          >
-            <SearchForm />
-          </View>
-          <View
-            width="100%"
-            paddingBottom="size-200"
-            position="absolute"
-            top="size-900"
-            backgroundColor="default"
-          >
-            <CategoryList />
-          </View>
-        </AboutAddOn>
-      </View>
-    </Initializer>
+    <View
+      width="100%"
+      margin="size-0"
+      padding="size-0"
+      position="relative"
+      backgroundColor="default"
+    >
+      <Button variant="text">Text</Button>
+      <Button variant="contained">Contained</Button>
+      <Button variant="outlined">Outlined</Button>
+    </View>
   );
 });
 
