@@ -1,21 +1,5 @@
-/*
-Copyright 2024 Adobe. All rights reserved.
-This file is licensed to you under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License. You may obtain a copy
-of the License at http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under
-the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
-OF ANY KIND, either express or implied. See the License for the specific language
-governing permissions and limitations under the License.
-*/
-
 import React, { useState } from "react";
 import { View } from "@adobe/react-spectrum";
-
-// import SearchForm from "./SearchForm";
-// import CategoryList from "./CategoryList";
-// import AboutAddOn from "./AboutAddOn";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -61,6 +45,7 @@ const App = () => {
   ];
 
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedTag, setSelectedTag] = useState(null);
 
   const handleButtonClick = (option) => {
     setSelectedOption(option);
@@ -68,19 +53,19 @@ const App = () => {
 
   const handleGoBack = () => {
     setSelectedOption(null);
+    setSelectedTag(null);
+  };
+
+  const handleTagClick = (option) => {
+    setSelectedTag(option);
   };
 
   return (
-    <View
-      width="100%"
-      margin="size-0"
-      padding="size-0"
-      position="relative"
-      backgroundColor="default"
-    >
+    <View className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
       {/* Initially only the buttons are shown */}
       {!selectedOption && (
-        <View>
+        <View className="text-center space-y-4">
+          <h1 className="text-xl font-bold">Generate Viral Meme Content</h1>
           <ButtonGroup variant="contained" aria-label="Basic button group">
             <Button onClick={() => handleButtonClick("Video")}>Video</Button>
             <Button onClick={() => handleButtonClick("Photo")}>Photo</Button>
@@ -90,57 +75,69 @@ const App = () => {
 
       {/* Show this content only if a button is clicked */}
       {selectedOption && (
-        <View>
-          <Button
-            variant="outlined"
-            onClick={handleGoBack}
-            style={{ marginBottom: "20px" }}
-          >
+        <View className="text-center space-y-4">
+          {/* Go Back Button */}
+          <Button variant="outlined" onClick={handleGoBack} className="mb-4">
             Go Back
           </Button>
-          <View>
-            <View>Tiktok</View>
-            <Fab variant="extended">
-              <NavigationIcon sx={{ mr: 1 }} />
-              #skibidiGyatRizz
-            </Fab>
-          </View>
-          <View>
-            <View>LockedIn</View>
-            <Fab variant="extended">
-              <NavigationIcon sx={{ mr: 1 }} />
-              lockedin
-            </Fab>
-          </View>
-          <View>
-            <View>Instagram</View>
-            <Fab variant="extended">
-              <NavigationIcon sx={{ mr: 1 }} />
-              insta
-            </Fab>
-          </View>
 
-          <View>
-            <View>Template Videos</View>
-            <View>
-              <ImageList
-                sx={{ width: 250, height: 450 }}
-                cols={2}
-                rowHeight={164}
-              >
-                {itemData.map((item) => (
-                  <ImageListItem key={item.img}>
-                    <img
-                      srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                      src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                      alt={item.title}
-                      loading="lazy"
-                    />
-                  </ImageListItem>
-                ))}
-              </ImageList>
+          {/* Trending and Tags */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold">TRENDING</h2>
+            <Button onClick={() => handleTagClick("skibidiGyatRizz")}>
+              <Fab variant="extended">
+                <NavigationIcon sx={{ mr: 1 }} />
+                #skibidiGyatRizz
+              </Fab>
+            </Button>
+
+            <div>
+              <h2 className="text-lg font-semibold">LockedIn</h2>
+              <Button onClick={() => handleTagClick("lockedin")}>
+                <Fab variant="extended">
+                  <NavigationIcon sx={{ mr: 1 }} />
+                  lockedin
+                </Fab>
+              </Button>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold">Instagram</h2>
+              <Button onClick={() => handleTagClick("insta")}>
+                <Fab variant="extended">
+                  <NavigationIcon sx={{ mr: 1 }} />
+                  insta
+                </Fab>
+              </Button>
+            </div>
+          </div>
+
+          {/* Show Template Videos based on the selected tag */}
+          {selectedTag && (
+            <View className="space-y-4">
+              <h3 className="text-lg font-semibold">
+                {selectedTag} Template Videos
+              </h3>
+              <View>
+                <ImageList
+                  sx={{ width: 250, height: 450 }}
+                  cols={2}
+                  rowHeight={164}
+                >
+                  {itemData.map((item) => (
+                    <ImageListItem key={item.img}>
+                      <img
+                        srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                        src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                        alt={item.title}
+                        loading="lazy"
+                      />
+                    </ImageListItem>
+                  ))}
+                </ImageList>
+              </View>
             </View>
-          </View>
+          )}
         </View>
       )}
     </View>
