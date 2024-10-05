@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import React, { memo } from "react";
+import React, { useState } from "react";
 import { View } from "@adobe/react-spectrum";
 
 // import SearchForm from "./SearchForm";
@@ -24,7 +24,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import "./App.css";
 
-const App = memo(({ addOnSdk }) => {
+const App = () => {
   const itemData = [
     {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -60,6 +60,16 @@ const App = memo(({ addOnSdk }) => {
     },
   ];
 
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleButtonClick = (option) => {
+    setSelectedOption(option);
+  };
+
+  const handleGoBack = () => {
+    setSelectedOption(null);
+  };
+
   return (
     <View
       width="100%"
@@ -68,56 +78,73 @@ const App = memo(({ addOnSdk }) => {
       position="relative"
       backgroundColor="default"
     >
-      <View>
-        <ButtonGroup variant="contained" aria-label="Basic button group">
-          <Button>Video</Button>
-          <Button>Photo</Button>
-        </ButtonGroup>
-      </View>
+      {/* Initially only the buttons are shown */}
+      {!selectedOption && (
+        <View>
+          <ButtonGroup variant="contained" aria-label="Basic button group">
+            <Button onClick={() => handleButtonClick("Video")}>Video</Button>
+            <Button onClick={() => handleButtonClick("Photo")}>Photo</Button>
+          </ButtonGroup>
+        </View>
+      )}
 
-      <View>
+      {/* Show this content only if a button is clicked */}
+      {selectedOption && (
         <View>
-          <View>Tiktok</View>
-          <Fab variant="extended">
-            <NavigationIcon sx={{ mr: 1 }} />
-            tiktok
-          </Fab>
-        </View>
-        <View>
-          <View>LockedIn</View>
-          <Fab variant="extended">
-            <NavigationIcon sx={{ mr: 1 }} />
-            lockedin
-          </Fab>
-        </View>
-        <View>
-          <View>Instagram</View>
-          <Fab variant="extended">
-            <NavigationIcon sx={{ mr: 1 }} />
-            insta
-          </Fab>
-        </View>
-      </View>
+          <Button
+            variant="outlined"
+            onClick={handleGoBack}
+            style={{ marginBottom: "20px" }}
+          >
+            Go Back
+          </Button>
+          <View>
+            <View>Tiktok</View>
+            <Fab variant="extended">
+              <NavigationIcon sx={{ mr: 1 }} />
+              #skibidiGyatRizz
+            </Fab>
+          </View>
+          <View>
+            <View>LockedIn</View>
+            <Fab variant="extended">
+              <NavigationIcon sx={{ mr: 1 }} />
+              lockedin
+            </Fab>
+          </View>
+          <View>
+            <View>Instagram</View>
+            <Fab variant="extended">
+              <NavigationIcon sx={{ mr: 1 }} />
+              insta
+            </Fab>
+          </View>
 
-      <View>
-        <View>Template Videos</View>
-        <View>
-          <ImageList sx={{ width: 250, height: 450 }} cols={2} rowHeight={164}>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img}>
-                <img
-                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                  alt={item.title}
-                  loading="lazy"
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
+          <View>
+            <View>Template Videos</View>
+            <View>
+              <ImageList
+                sx={{ width: 250, height: 450 }}
+                cols={2}
+                rowHeight={164}
+              >
+                {itemData.map((item) => (
+                  <ImageListItem key={item.img}>
+                    <img
+                      srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                      src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                      alt={item.title}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            </View>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
-});
+};
 
 export default App;
