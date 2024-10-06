@@ -16,20 +16,20 @@ const App = memo(({ addOnSdk }) => {
   const itemData = [
     {
       // img: "https://firebasestorage.googleapis.com/v0/b/temple-trading-hub-tth.appspot.com/o/fire4.mp4?alt=media&token=4c6968b8-85d7-4428-a5ca-21592879aec8",
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Breakfast",
+      img: "https://pyxis.nymag.com/v1/imgs/1a1/ae6/5783054bc71b5e316a459f71147a7bd912-hawktuah-girl.2x.rsocial.w600.png",
+      title: "Hawk Tuah",
     },
     {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vBcsYsvpR4wGICjOBGkXzvoBnAAl_gNXXw&s",
+      title: "Skibiddi Toilet",
     },
     {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
+      img: "https://static1.thegamerimages.com/wordpress/wp-content/uploads/wm/2024/05/roblox-aura-craft-character-with-three-different-colored-auras-blue-red-and-purple.jpg",
+      title: "W aura",
     },
     {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
+      img: "https://ih1.redbubble.net/image.4597249639.2296/raf,360x360,075,t,fafafa:ca443f4786.u1.jpg",
+      title: "Ohio Rizz Apple",
     },
   ];
 
@@ -97,31 +97,31 @@ const App = memo(({ addOnSdk }) => {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold">TRENDING</h2>
               <h2 className="text-lg font-semibold">TikTok</h2>
-              <Button onClick={() => handleTagClick("skibidiGyatRizz")}>
+              <Button onClick={() => handleTagClick("skibidi")}>
                 <Fab variant="extended" size="small" className="text-xs p-2">
-                  #skibidiGyatRizz
+                  #skibidi
                 </Fab>
               </Button>
-              <Button onClick={() => handleTagClick("skibidiGyatRizz")}>
+              <Button onClick={() => handleTagClick("W aura")}>
                 <Fab variant="extended" size="small" className="text-xs p-2">
-                  #skibidiGyatRizz
+                  #W aura
                 </Fab>
               </Button>
               <div className="flex justify-center space-x-2">
                 {" "}
                 {/* Use flexbox for inline alignment */}
-                <Button onClick={() => handleTagClick("skibidiGyatRizz")}>
+                <Button onClick={() => handleTagClick("Ohio Rizz Apple")}>
                   <Fab
                     variant="extended"
                     size="small"
                     style={{ fontSize: "0.5rem", padding: "0.2rem 0.4rem" }}
                   >
-                    #skibidiGyatRizz
+                    #OhioRizzApple
                   </Fab>
                 </Button>
-                <Button onClick={() => handleTagClick("skibidiGyatRizz")}>
+                <Button onClick={() => handleTagClick("Hawk Tuah")}>
                   <Fab variant="extended" size="small" className="text-xs p-2">
-                    #s
+                    #Hawk Tuah
                   </Fab>
                 </Button>
               </div>
