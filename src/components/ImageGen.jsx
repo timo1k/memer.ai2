@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import { getStorage, ref, uploadString } from "firebase/storage";
-import { storage } from "./firebase";
+import React, { useState, memo } from "react";
+import Button from "@mui/material/Button";
 
-const ImageGen = () => {
+const ImageGen = memo(({ addOnSdk }) => {
   const [prompt, setPrompt] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const uploadImageToFirebase = async (imageUrl) => {
+  const getBlob = async (url) => {
+    return await fetch(url).then((response) => response.blob());
+  };
+
+  const addToDocument = async (event) => {
     try {
-      console.log("Uploading image to Firebase:", imageUrl);
-      // Your Firebase upload logic here
-      console.log("Image uploaded successfully.");
+      const url = event.currentTarget.querySelector("img").src; // Get the image URL
+      const blob = await getBlob(url); // Fetch the image as a blob
+      addOnSdk.app.document.addImage(blob); // Add the image blob to the document
     } catch (error) {
-      console.error("Error uploading image:", error);
+      console.log(error);
     }
   };
 
@@ -23,24 +26,42 @@ const ImageGen = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5001/generate-image", {
+      const raw = JSON.stringify({
+        key: "aNA6XOSXh8zypL016hiHQGVFF9yOH34GdnMXTIH9SoelPgjonZNek2urBOyY",
+        prompt: prompt,
+        negative_prompt: "bad quality",
+        width: "512",
+        height: "512",
+        safety_checker: false,
+        seed: null,
+        samples: 1,
+        base64: false,
+        webhook: null,
+        track_id: null,
+      });
+
+      const requestOptions = {
         method: "POST",
+        body: raw,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt }),
-      });
+      };
 
-      console.log("Response received:", response);
+      const response = await fetch(
+        "https://modelslab.com/api/v6/realtime/text2img",
+        requestOptions
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
-      const data = await response.json();
-      console.log("Data received from API:", data);
-      setImage(data.image);
-      await uploadImageToFirebase(data.image);
+      const result = await response.json(); // Parse the JSON response
+      console.log("Data received from API:", result);
+
+      // Set the image from the output
+      setImage(result.output[0]);
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
@@ -61,9 +82,13 @@ const ImageGen = () => {
       <button onClick={generateImage} disabled={loading}>
         {loading ? "Generating..." : "Generate"}
       </button>
-      {image && <img src={image} alt="Generated" />}
+      {image && (
+        <Button onClick={addToDocument}>
+          <img src={image} loading="lazy" />
+        </Button>
+      )}
     </div>
   );
-};
+});
 
 export default ImageGen;

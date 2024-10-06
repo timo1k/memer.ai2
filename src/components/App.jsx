@@ -69,7 +69,7 @@ const App = memo(({ addOnSdk }) => {
         {/* Initially only the buttons are shown */}
         {!selectedOption && (
           <View className="text-center space-y-4">
-            <h1 className="text-xl font-bold">Generate Viral Meme Content</h1>
+            <h1 className="text-xl font-bold">Generate Viral Meme Stickers</h1>
             <ButtonGroup variant="contained" aria-label="Basic button group">
               <Button onClick={() => handleButtonClick("Video")}>Video</Button>
               <Button onClick={() => handleButtonClick("Photo")}>Photo</Button>
@@ -199,7 +199,7 @@ const App = memo(({ addOnSdk }) => {
                   <Button onClick={() => handleTagClick("insta")}>
                     <Fab variant="extended">Generate</Fab>
                   </Button> */}
-                  <ImageGen></ImageGen>
+                  <ImageGen addOnSdk={addOnSdk}></ImageGen>
                 </View>
               </View>
             )}
