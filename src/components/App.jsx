@@ -8,6 +8,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import memeIcon from "../../meme.png"; // Import the meme image
+import ImageGen from "./ImageGen";
 
 import Initializer from "./Initializer";
 
@@ -173,8 +174,7 @@ const App = memo(({ addOnSdk }) => {
                   <h2 className="text-lg font-semibold">
                     {selectedOption} Generator
                   </h2>
-                  <h2>Your Prompt</h2>
-                  <Box
+                  {/* <Box
                     component="form"
                     sx={{
                       "& > :not(style)": { m: 1, width: "25ch" },
@@ -196,10 +196,10 @@ const App = memo(({ addOnSdk }) => {
                       defaultValue="your description here"
                     />
                   </Box>
-                  {/* //update */}
                   <Button onClick={() => handleTagClick("insta")}>
                     <Fab variant="extended">Generate</Fab>
-                  </Button>
+                  </Button> */}
+                  <ImageGen></ImageGen>
                 </View>
               </View>
             )}
